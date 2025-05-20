@@ -1,0 +1,32 @@
+name: Python Tests
+
+on:
+  push:
+    paths:
+      - 'lox-base/**'
+  pull_request:
+    paths:
+      - 'lox-base/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install lark pytest
+          # Instale outras dependências se necessário
+
+      - name: Run tests
+        working-directory: lox-base
+        run: pytest
